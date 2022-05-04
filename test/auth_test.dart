@@ -47,7 +47,7 @@ expect(user.isEmailVerified,false);
       expect(user,isNotNull);
       expect(user!.isEmailVerified,true);
     });
-    test('Should be able to logout and login agina',()async{
+    test('Should be able to logout and login again',()async{
       await provider.logOut();
       await provider.logIn(
           email: 'email',
@@ -92,7 +92,7 @@ return logIn(
     if(!isInitialized) throw NotInitializedException();
     if(email=='yolo@gmail.com')throw UserNotFoundAuthException();
     if(password=='yolo')throw WrongPasswordAuthException();
-    const user=AuthUser(isEmailVerified:false);
+    const user=AuthUser(isEmailVerified:false, email: 'yolo@gmail.com');
     _user=user;
     return Future.value(user);
   }
@@ -110,7 +110,7 @@ return logIn(
     if(!isInitialized) throw NotInitializedException();
     final user=_user;
     if(user==null)throw UserNotFoundAuthException();
-    const newUser=AuthUser(isEmailVerified: true);
+    const newUser=AuthUser(isEmailVerified: true, email: 'yolo@gmail.com');
     _user=newUser;
   }
   

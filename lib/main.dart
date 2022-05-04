@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:practise/constants/routes.dart';
 import 'package:practise/services/auth_service.dart';
 import 'package:practise/views/login_view.dart';
-import 'package:practise/views/notes_view.dart';
+import 'package:practise/notes/notes_view.dart';
 import 'package:practise/views/register_view.dart';
 import 'package:practise/views/verify_email_view.dart';
+
+import 'notes/new_note_view.dart';
 //import 'dart:developer' as devtools show log; //show allows us to use specific import only
 
 void main() {
@@ -21,6 +23,7 @@ void main() {
         registerRoute: (context) => const RegisterView(),
         notesRoute:(context)=>const NotesView(),
         verifyEmailRoute:(context)=>const VerifyEmailView(),
+        newNoteRoute:(context)=>const NewNoteView(),
       },
     ),
   );
