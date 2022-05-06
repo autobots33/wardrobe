@@ -3,18 +3,23 @@ import 'package:flutter/cupertino.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart';
-
 import 'crud_exceptions.dart';
 
 class NotesService {
   Database? _db;
   List<DatabaseNote>_notes=[];
   static final _shared=NotesService._sharedInstance();
-  NotesService._sharedInstance();
+  NotesService._sharedInstance(){
+    _notesStreamController=StreamController<List<DatabaseNote>>.broadcast(
+      onListen: (){
+    _notesStreamController.sink.add(_notes);
+  },
+      );
+}
   factory NotesService()=> _shared;  // singleton created
 
-  final _notesStreamController=
-  StreamController<List<DatabaseNote>>.broadcast();
+  late final StreamController<List<DatabaseNote>> _notesStreamController;
+
   Stream<List<DatabaseNote>>get allNotes=>_notesStreamController.stream;  //getter for getting all notes
   Future<DatabaseUser>getOrCreateUser({required String email})async {
     try {
@@ -209,7 +214,9 @@ return DatabaseUser.fromRow(results.first);
       await open();
     }on DatabaseAlreadyOpenException{
 
-    }
+    } //THis one throwing error
+
+
   }
 
   Future<void> open() async {
@@ -257,7 +264,7 @@ class DatabaseUser {
 bool operator==(covariant DatabaseUser other)=>id==other.id;
 
   @override
-  // TODO: implement hashCode
+  //  implement hashCode
   int get hashCode => id.hashCode;
 
 
@@ -282,13 +289,13 @@ class DatabaseNote{
   isSyncedWithCloud=(map[isSyncedWithCloudColumn]as int)==1?true :false;
   @override
   String toString()=>'Note, ID=$id , userId=$userId, isSyncedWithCLoud=$isSyncedWithCloud,text=$text';
-    // TODO: implement toString
+    // implement toString
 
   @override
   bool operator==(covariant DatabaseNote other)=>id==other.id;
 
   @override
-  // TODO: implement hashCode
+  //  implement hashCode
   int get hashCode => id.hashCode;
 
 }

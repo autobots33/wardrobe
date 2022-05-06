@@ -17,7 +17,7 @@ class AuthService implements AuthProvider {
 
 
   @override
-  // TODO: implement currentUser
+  //  implement currentUser
   AuthUser? get currentUser => provider.currentUser;
 
   @override
