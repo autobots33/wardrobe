@@ -38,7 +38,6 @@ dependencies:
   adobe_xd:
   firebase_core:
   firebase_auth:
-  cloud_firestore:
   firebase_analytics:
   firebase_database:
   flutterfire_ui:
@@ -49,6 +48,7 @@ dependencies:
   sqflite: ^2.0.2+1
   path_provider: ^2.0.9
   path: ^1.8.0
+  cloud_firestore: ^3.1.14
 
 dev_dependencies:
   flutter_test:

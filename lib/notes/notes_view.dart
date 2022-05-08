@@ -20,6 +20,7 @@ class _NotesViewState extends State<NotesView> {
   @override
   void initState() {
     _notesService = NotesService();
+    _notesService.open();
     super.initState();
   }
   @override
@@ -31,7 +32,7 @@ class _NotesViewState extends State<NotesView> {
           IconButton(onPressed: (){
             Navigator.of(context).pushNamed(createOrUpdateNoteRoute);
           },
-              icon: const Icon(Icons.add)
+              icon: const Icon(Icons.add),
           ),
           PopupMenuButton<MenuAction>(
             onSelected: (value) async {
@@ -41,7 +42,8 @@ class _NotesViewState extends State<NotesView> {
                   if (shouldLogout) {
                     await AuthService.firebase().logOut();
                     Navigator.of(context)
-                        .pushNamedAndRemoveUntil(loginRoute, (_) => false);
+                        .pushNamedAndRemoveUntil(loginRoute, (_) => false,
+                    );
                   }
                 //  devtools.log(shouldLogout.toString());
                 //   break;
@@ -75,7 +77,8 @@ class _NotesViewState extends State<NotesView> {
                                    notes: allNotes,
                                    onDeleteNote:(note) async {
                   await _notesService.deleteNote(id: note.id);
-                        },onTap:(note){
+                        },
+                                 onTap:(note) { //async should be used
 
                                  Navigator.of(context).pushNamed(createOrUpdateNoteRoute,
                                      arguments: note,

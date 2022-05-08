@@ -43,7 +43,7 @@ Future<DatabaseNote>createOrGetExistingNote(BuildContext context)async{
   final widgetNote= context.getArgument<DatabaseNote>();
   if(widgetNote!=null){
     _note=widgetNote;
-    _textController.text=widgetNote.text;
+    _textController.text=widgetNote.text;  // pre populated with existing note
     return widgetNote;
   }
   final existingNote=_note;
@@ -69,7 +69,8 @@ void _saveNoteIfTextNotEmpty()async{
   if(note!=null && text.isNotEmpty){
     await _notesService.updateNote(
         note: note,
-        text: text);
+        text: text,
+    );
   }
 
 }
